@@ -43,7 +43,7 @@ const Dashboard: React.FC = () => {
       try {
         const token = localStorage.getItem("token");
         const response = await axios.get(
-          "http://localhost:5000/api/watchlist",
+          "https://stockappp-u4ue.onrender.com/api/watchlist",
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -68,16 +68,18 @@ const Dashboard: React.FC = () => {
       try {
         const token = localStorage.getItem("token");
         let allSymbols = [...watchlist, newSymbol];
-        allSymbols.filter(s => s.trim() !== "");
-        const promises =allSymbols.slice(0, allSymbols.length - 1).map(async (symbol, index) => {
-          const response = await axios.get(
-            `http://localhost:5000/api/stock/${symbol}`,
-            {
-              headers: { Authorization: `Bearer ${token}` },
-            }
-          );
-          return { symbol, data: response.data };
-        });
+        allSymbols.filter((s) => s.trim() !== "");
+        const promises = allSymbols
+          .slice(0, allSymbols.length - 1)
+          .map(async (symbol, index) => {
+            const response = await axios.get(
+              `https://stockappp-u4ue.onrender.com/api/stock/${symbol}`,
+              {
+                headers: { Authorization: `Bearer ${token}` },
+              }
+            );
+            return { symbol, data: response.data };
+          });
         const data = await Promise.all(promises);
         const stockInfo = data.reduce((acc, { symbol, data }) => {
           acc[symbol] = {
@@ -104,7 +106,7 @@ const Dashboard: React.FC = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://localhost:5000/api/watchlist",
+        "https://stockappp-u4ue.onrender.com/api/watchlist",
         { symbol: newSymbol },
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -118,9 +120,12 @@ const Dashboard: React.FC = () => {
   const removeFromWatchlist = async (symbol: string) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/watchlist/${symbol}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `https://stockappp-u4ue.onrender.com/api/watchlist/${symbol}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setWatchlist((prevWatchlist) =>
         prevWatchlist.filter((item) => item !== symbol)
       );

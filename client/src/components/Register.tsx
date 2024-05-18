@@ -52,7 +52,7 @@ const Register: React.FC = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      await axios.post("http://localhost:5000/api/auth/register", {
+      await axios.post("https://stockappp-u4ue.onrender.com/api/auth/register", {
         username,
         password,
       });

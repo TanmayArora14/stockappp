@@ -53,7 +53,7 @@ const Login: React.FC = () => {
     try {
       setLoading(true);
       const response = await axios.post(
-        "http://localhost:5000/api/auth/login",
+        "https://stockappp-u4ue.onrender.com/api/auth/login",
         {
           username,
           password,
